@@ -2,6 +2,7 @@
 
 Dalec is a project aimed at providing a declarative format for building system packages and containers from those packages.
 
+
 Our goal is to provide a secure and reproducible way to build packages and containers, with a focus on supply chain security.
 
 > [!NOTE]
