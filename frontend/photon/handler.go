@@ -45,7 +45,7 @@ func newHandler(w worker) gwclient.BuildFunc {
 
 	mux.Add("container/depsonly", handleDepsOnly(w), &targets.Target{
 		Name:        "container/depsonly",
-		Description: "Builds a container image with only the runtime dependencies installed.",
+		Description: "Builds a container image with only the photon runtime dependencies installed.",
 	})
 
 	mux.Add("worker", handleBaseImg(w), &targets.Target{
