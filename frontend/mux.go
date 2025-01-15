@@ -76,7 +76,7 @@ type handler struct {
 }
 
 // Add adds a handler for the given target
-// [targetKey] is the resource path to be handled
+// [targetPath] is the resource path to be handled
 func (m *BuildMux) Add(targetPath string, bf gwclient.BuildFunc, info *bktargets.Target) {
 	if m.handlers == nil {
 		m.handlers = make(map[string]handler)
@@ -204,7 +204,11 @@ func (m *BuildMux) loadSpec(ctx context.Context, client gwclient.Client) (*dalec
 	}
 
 	// Note: this is not suitable for passing to builds since it does not have platform information
-	spec, err := LoadSpec(ctx, dc, nil)
+	spec, err := LoadSpec(ctx, dc, nil, func(cfg *LoadConfig) {
+		// We want to allow any arg to be passed to the spec since we don't know what
+		// args are valid at this point, nor do we care here.
+		cfg.SubstituteOpts = append(cfg.SubstituteOpts, dalec.WithAllowAnyArg)
+	})
 	if err != nil {
 		return nil, err
 	}
